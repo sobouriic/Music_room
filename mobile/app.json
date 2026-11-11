@@ -1,0 +1,41 @@
+{
+  "expo": {
+    "name": "Music Room",
+    "slug": "music-room",
+    "scheme": "musicroom",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "dark",
+    "backgroundColor": "#0a0a18",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#0a0a18"
+    },
+    "ios": {
+      "bundleIdentifier": "com.musicroom.app"
+    },
+    "android": {
+      "package": "com.musicroom.app",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#7b3fe4"
+      }
+    },
+    "plugins": [
+      "expo-audio",
+      "expo-web-browser",
+      [
+        "expo-location",
+        {
+          "locationWhenInUsePermission": "Allow Music Room to use your location to set event venues and vote at nearby events.",
+          "isIosBackgroundLocationEnabled": false,
+          "isAndroidBackgroundLocationEnabled": false,
+          "isAndroidForegroundServiceEnabled": false
+        }
+      ],
+      "expo-notifications"
+    ]
+  }
+}

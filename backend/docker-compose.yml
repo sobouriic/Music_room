@@ -1,0 +1,52 @@
+services:
+  db:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:?Run make install first}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Run make install first}
+      POSTGRES_DB: ${POSTGRES_DB:?Run make install first}
+    ports: ["127.0.0.1:5432:5432"]
+    volumes: ["postgres_data:/var/lib/postgresql/data"]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 2s
+      timeout: 3s
+      retries: 20
+  test-db:
+    image: postgres:17-alpine
+    profiles: [test]
+    environment:
+      POSTGRES_USER: music
+      POSTGRES_PASSWORD: music_test_only
+      POSTGRES_DB: music_room_test
+    ports: ["127.0.0.1:5433:5432"]
+    tmpfs: ["/var/lib/postgresql/data"]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U music -d music_room_test"]
+      interval: 2s
+      timeout: 3s
+      retries: 20
+  api:
+    build: .
+    profiles: [app]
+    env_file: .env
+    environment:
+      DATABASE_URL: ${CONTAINER_DATABASE_URL:?Run make install first}
+    ports: ["127.0.0.1:8000:8000"]
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes: ["./.dev-mail:/app/.dev-mail"]
+  mail-worker:
+    build: .
+    profiles: [app]
+    env_file: .env
+    environment:
+      DATABASE_URL: ${CONTAINER_DATABASE_URL:?Run make install first}
+    command: ["python", "-m", "mandatory.services.email_service"]
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes: ["./.dev-mail:/app/.dev-mail"]
+volumes:
+  postgres_data:

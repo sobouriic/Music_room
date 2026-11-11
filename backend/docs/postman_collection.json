@@ -1,0 +1,1810 @@
+{
+  "info": {
+    "name": "Music Room \u2014 Phase 1",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{access_token}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8001"
+    },
+    {
+      "key": "collection",
+      "value": "playlists"
+    },
+    {
+      "key": "deezer_id",
+      "value": "67238732"
+    },
+    {
+      "key": "resource_id",
+      "value": ""
+    },
+    {
+      "key": "track_id",
+      "value": ""
+    },
+    {
+      "key": "device_id",
+      "value": ""
+    },
+    {
+      "key": "access_token",
+      "value": ""
+    },
+    {
+      "key": "refresh_token",
+      "value": ""
+    },
+    {
+      "key": "verification_token",
+      "value": ""
+    },
+    {
+      "key": "reset_token",
+      "value": ""
+    },
+    {
+      "key": "oauth_state",
+      "value": ""
+    },
+    {
+      "key": "google_code",
+      "value": ""
+    },
+    {
+      "key": "code_verifier",
+      "value": ""
+    },
+    {
+      "key": "code_challenge",
+      "value": ""
+    },
+    {
+      "key": "user_id",
+      "value": "11111111-1111-4111-8111-111111111111"
+    }
+  ],
+  "item": [
+    {
+      "name": "GET /api/v1/health",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "X-App-Platform",
+            "value": "Android"
+          },
+          {
+            "key": "X-App-Device",
+            "value": "Postman"
+          },
+          {
+            "key": "X-App-Version",
+            "value": "1.0.0"
+          }
+        ],
+        "url": "{{base_url}}/api/v1/health",
+        "description": "Checks database connectivity.",
+        "auth": {
+          "type": "noauth"
+        }
+      }
+    },
+    {
+      "name": "POST /api/v1/auth/register",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "X-App-Platform",
+            "value": "Android"
+          },
+          {
+            "key": "X-App-Device",
+            "value": "Postman"
+          },
+          {
+            "key": "X-App-Version",
+            "value": "1.0.0"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{base_url}}/api/v1/auth/register",
+        "description": "Creates an unverified password account and queues email. Existing addresses receive the same response.",
+        "auth": {
+          "type": "noauth"
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"alice@example.com\",\n  \"password\": \"A good long password 42!\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "POST /api/v1/auth/verify-email",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "X-App-Platform",
+            "value": "Android"
+          },
+          {
+            "key": "X-App-Device",
+            "value": "Postman"
+          },
+          {
+            "key": "X-App-Version",
+            "value": "1.0.0"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{base_url}}/api/v1/auth/verify-email",
+        "description": "24-hour single-use verification token. Establish the email owner's password here; any unverified signup password is replaced.",
+        "auth": {
+          "type": "noauth"
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"token\": \"{{verification_token}}\",\n  \"password\": \"A good long password 42!\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "POST /api/v1/auth/resend-verification",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "X-App-Platform",
+            "value": "Android"
+          },
+          {
+            "key": "X-App-Device",
+            "value": "Postman"
+          },
+          {
+            "key": "X-App-Version",
+            "value": "1.0.0"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{base_url}}/api/v1/auth/resend-verification",
+        "description": "Queues another verification for an eligible unverified account.",
+        "auth": {
+          "type": "noauth"
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"alice@example.com\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "POST /api/v1/auth/login",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "X-App-Platform",
+            "value": "Android"
+          },
+          {
+            "key": "X-App-Device",
+            "value": "Postman"
+          },
+          {
+            "key": "X-App-Version",
+            "value": "1.0.0"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{base_url}}/api/v1/auth/login",
+        "description": "JSON email/password login; no OAuth password-grant form. Unverified/disabled accounts receive generic 401.",
+        "auth": {
+          "type": "noauth"
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"alice@example.com\",\n  \"password\": \"A good long password 42!\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "if (pm.response.code === 200) {",
+              "  const data = pm.response.json();",
+              "  pm.collectionVariables.set('access_token', data.access_token);",
+              "  pm.collectionVariables.set('refresh_token', data.refresh_token);",
+              "}"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "POST /api/v1/auth/refresh",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "X-App-Platform",
+            "value": "Android"
+          },
+          {
+            "key": "X-App-Device",
+            "value": "Postman"
+          },
+          {
+            "key": "X-App-Version",
+            "value": "1.0.0"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{base_url}}/api/v1/auth/refresh",
+        "description": "Replaces the refresh token. Reuse revokes the family. Serialize refreshes on the client.",
+        "auth": {
+          "type": "noauth"
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"refresh_token\": \"{{refresh_token}}\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "if (pm.response.code === 200) {",
+              "  const data = pm.response.json();",
+              "  pm.collectionVariables.set('access_token', data.access_token);",
+              "  pm.collectionVariables.set('refresh_token', data.refresh_token);",
+              "}"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "POST /api/v1/auth/logout",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "X-App-Platform",
+            "value": "Android"
+          },
+          {
+            "key": "X-App-Device",
+            "value": "Postman"
+          },
+          {
+            "key": "X-App-Version",
+            "value": "1.0.0"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{base_url}}/api/v1/auth/logout",
+        "description": "Requires access token and refresh token from the same session family.",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"refresh_token\": \"{{refresh_token}}\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "POST /api/v1/auth/logout-all",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "X-App-Platform",
+            "value": "Android"
+          },
+          {
+            "key": "X-App-Device",
+            "value": "Postman"
+          },
+          {
+            "key": "X-App-Version",
+            "value": "1.0.0"
+          }
+        ],
+        "url": "{{base_url}}/api/v1/auth/logout-all",
+        "description": "Revokes all access and refresh sessions immediately."
+      }
+    },
+    {
+      "name": "POST /api/v1/auth/forgot-password",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "X-App-Platform",
+            "value": "Android"
+          },
+          {
+            "key": "X-App-Device",
+            "value": "Postman"
+          },
+          {
+            "key": "X-App-Version",
+            "value": "1.0.0"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{base_url}}/api/v1/auth/forgot-password",
+        "description": "Generic response; only eligible password accounts receive mail.",
+        "auth": {
+          "type": "noauth"
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"alice@example.com\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "POST /api/v1/auth/reset-password",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "X-App-Platform",
+            "value": "Android"
+          },
+          {
+            "key": "X-App-Device",
+            "value": "Postman"
+          },
+          {
+            "key": "X-App-Version",
+            "value": "1.0.0"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{base_url}}/api/v1/auth/reset-password",
+        "description": "One-hour single-use token; invalidates other reset tokens, queued resets and all sessions.",
+        "auth": {
+          "type": "noauth"
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"token\": \"{{reset_token}}\",\n  \"password\": \"A replacement password 43!\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "POST /api/v1/auth/change-password",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "X-App-Platform",
+            "value": "Android"
+          },
+          {
+            "key": "X-App-Device",
+            "value": "Postman"
+          },
+          {
+            "key": "X-App-Version",
+            "value": "1.0.0"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{base_url}}/api/v1/auth/change-password",
+        "description": "Current password is required for password accounts. Google-only verified users may omit it to add a password. All sessions revoked.",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"current_password\": \"A good long password 42!\",\n  \"password\": \"A replacement password 43!\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "POST /api/v1/auth/google/start",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "X-App-Platform",
+            "value": "Android"
+          },
+          {
+            "key": "X-App-Device",
+            "value": "Postman"
+          },
+          {
+            "key": "X-App-Version",
+            "value": "1.0.0"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{base_url}}/api/v1/auth/google/start",
+        "description": "intent is login or link. Linking requires a bearer token. Use PKCE S256; keep verifier/state on device.",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"code_challenge\": \"{{code_challenge}}\",\n  \"intent\": \"login\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "if (pm.response.code === 200) pm.collectionVariables.set('oauth_state', pm.response.json().state);"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "GET /api/v1/auth/google/callback",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "X-App-Platform",
+            "value": "Android"
+          },
+          {
+            "key": "X-App-Device",
+            "value": "Postman"
+          },
+          {
+            "key": "X-App-Version",
+            "value": "1.0.0"
+          }
+        ],
+        "url": "{{base_url}}/api/v1/auth/google/callback",
+        "description": "Native attempts receive HTTP 302 to musicroom://oauth. Web attempts receive HTML redirecting to GOOGLE_WEB_RETURN_URL with a #google-callback= fragment. The integrated React Native/Expo browser client validates the saved attempt and exchanges the code. This GET does not issue login tokens.",
+        "auth": {
+          "type": "noauth"
+        }
+      }
+    },
+    {
+      "name": "POST /api/v1/auth/google/exchange",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "X-App-Platform",
+            "value": "Android"
+          },
+          {
+            "key": "X-App-Device",
+            "value": "Postman"
+          },
+          {
+            "key": "X-App-Version",
+            "value": "1.0.0"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{base_url}}/api/v1/auth/google/exchange",
+        "description": "Exchanges a one-time code and validates the Google ID token. Automatically signs into the matching email account or creates one. Disabled accounts and conflicting identities are rejected. Unverified signup credentials are invalidated before Google verifies the account.",
+        "auth": {
+          "type": "noauth"
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"state\": \"{{oauth_state}}\",\n  \"code\": \"{{google_code}}\",\n  \"code_verifier\": \"{{code_verifier}}\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "if (pm.response.code === 200) {",
+              "  const data = pm.response.json();",
+              "  pm.collectionVariables.set('access_token', data.access_token);",
+              "  pm.collectionVariables.set('refresh_token', data.refresh_token);",
+              "}"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "POST /api/v1/auth/google/link",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "X-App-Platform",
+            "value": "Android"
+          },
+          {
+            "key": "X-App-Device",
+            "value": "Postman"
+          },
+          {
+            "key": "X-App-Version",
+            "value": "1.0.0"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{base_url}}/api/v1/auth/google/link",
+        "description": "Requires an unconsumed intent=link attempt bound to this authenticated user. Does not change account email or password-email verification.",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"state\": \"{{oauth_state}}\",\n  \"code\": \"{{google_code}}\",\n  \"code_verifier\": \"{{code_verifier}}\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "DELETE /api/v1/auth/google/link",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "X-App-Platform",
+            "value": "Android"
+          },
+          {
+            "key": "X-App-Device",
+            "value": "Postman"
+          },
+          {
+            "key": "X-App-Version",
+            "value": "1.0.0"
+          }
+        ],
+        "url": "{{base_url}}/api/v1/auth/google/link",
+        "description": "Refuses removal of the last authentication method. Actual unlink revokes all sessions."
+      }
+    },
+    {
+      "name": "GET /api/v1/users/me",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "X-App-Platform",
+            "value": "Android"
+          },
+          {
+            "key": "X-App-Device",
+            "value": "Postman"
+          },
+          {
+            "key": "X-App-Version",
+            "value": "1.0.0"
+          }
+        ],
+        "url": "{{base_url}}/api/v1/users/me",
+        "description": "Owner view includes all four profile categories."
+      }
+    },
+    {
+      "name": "PATCH /api/v1/users/me",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "X-App-Platform",
+            "value": "Android"
+          },
+          {
+            "key": "X-App-Device",
+            "value": "Postman"
+          },
+          {
+            "key": "X-App-Version",
+            "value": "1.0.0"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{base_url}}/api/v1/users/me",
+        "description": "Partial typed section merge. Lists replace. Omitted/null sections remain unchanged; empty strings/lists clear fields. No email/password/role/owner updates.",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"public\": {\n    \"display_name\": \"Alice\"\n  },\n  \"friends_only\": {\n    \"location\": \"Casablanca\"\n  },\n  \"private\": {\n    \"notes\": \"Only me\"\n  },\n  \"music_preferences\": [\n    \"jazz\"\n  ]\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "GET /api/v1/users/{user_id}/public",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "X-App-Platform",
+            "value": "Android"
+          },
+          {
+            "key": "X-App-Device",
+            "value": "Postman"
+          },
+          {
+            "key": "X-App-Version",
+            "value": "1.0.0"
+          }
+        ],
+        "url": "{{base_url}}/api/v1/users/{{user_id}}/public",
+        "description": "Any authenticated user can view only explicitly public fields. Friends-only data is available separately to accepted friends or the owner."
+      }
+    },
+    {
+      "name": "GET /api/v1/friends",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "X-App-Platform",
+            "value": "Android"
+          },
+          {
+            "key": "X-App-Device",
+            "value": "Postman"
+          },
+          {
+            "key": "X-App-Version",
+            "value": "1.0.0"
+          }
+        ],
+        "url": "{{base_url}}/api/v1/friends",
+        "description": "Lists accepted friendships for the caller. Query limit (1\u2013100, default 50) and offset (default 0). Disabled users are excluded."
+      }
+    },
+    {
+      "name": "GET /api/v1/friends/requests",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "X-App-Platform",
+            "value": "Android"
+          },
+          {
+            "key": "X-App-Device",
+            "value": "Postman"
+          },
+          {
+            "key": "X-App-Version",
+            "value": "1.0.0"
+          }
+        ],
+        "url": "{{base_url}}/api/v1/friends/requests",
+        "description": "Lists incoming and outgoing pending requests, paginated with limit/offset. requester_id identifies the sender; user_id is the other participant."
+      }
+    },
+    {
+      "name": "POST /api/v1/friends/requests",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "X-App-Platform",
+            "value": "Android"
+          },
+          {
+            "key": "X-App-Device",
+            "value": "Postman"
+          },
+          {
+            "key": "X-App-Version",
+            "value": "1.0.0"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{base_url}}/api/v1/friends/requests",
+        "description": "Request friendship with another verified enabled user by UUID. Self requests are 400; existing friendship or either-direction request is 409. Pending requests grant no profile access.",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"user_id\": \"11111111-1111-4111-8111-111111111111\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "POST /api/v1/friends/{user_id}/accept",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "X-App-Platform",
+            "value": "Android"
+          },
+          {
+            "key": "X-App-Device",
+            "value": "Postman"
+          },
+          {
+            "key": "X-App-Version",
+            "value": "1.0.0"
+          }
+        ],
+        "url": "{{base_url}}/api/v1/friends/{{user_id}}/accept",
+        "description": "Only the recipient can accept. user_id is the original sender. Unknown requests return 404; sender self-acceptance is forbidden."
+      }
+    },
+    {
+      "name": "DELETE /api/v1/friends/{user_id}",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "X-App-Platform",
+            "value": "Android"
+          },
+          {
+            "key": "X-App-Device",
+            "value": "Postman"
+          },
+          {
+            "key": "X-App-Version",
+            "value": "1.0.0"
+          }
+        ],
+        "url": "{{base_url}}/api/v1/friends/{{user_id}}",
+        "description": "Either participant may cancel/decline a pending request or remove an accepted friendship. user_id is the other participant. Friends-only access is revoked after commit."
+      }
+    },
+    {
+      "name": "GET /api/v1/users/{user_id}/friends-only",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "X-App-Platform",
+            "value": "Android"
+          },
+          {
+            "key": "X-App-Device",
+            "value": "Postman"
+          },
+          {
+            "key": "X-App-Version",
+            "value": "1.0.0"
+          }
+        ],
+        "url": "{{base_url}}/api/v1/users/{{user_id}}/friends-only",
+        "description": "Only the owner or an accepted friend can read. Pending requests and strangers receive 403; unavailable/disabled targets also receive 403. Never returns email, private fields or music preferences. Public endpoint stays public-only."
+      }
+    },
+    {
+      "name": "GET /api/v1/users/search",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "X-App-Platform",
+            "value": "Android"
+          },
+          {
+            "key": "X-App-Device",
+            "value": "Postman"
+          },
+          {
+            "key": "X-App-Version",
+            "value": "1.0.0"
+          }
+        ],
+        "url": "{{base_url}}/api/v1/users/search?q=rock",
+        "description": "Search Users. See OpenAPI response schemas and MUSIC_INTEGRATION.md. Query parameters: q, limit, offset."
+      }
+    },
+    {
+      "name": "GET /api/v1/subscription",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "X-App-Platform",
+            "value": "Android"
+          },
+          {
+            "key": "X-App-Device",
+            "value": "Postman"
+          },
+          {
+            "key": "X-App-Version",
+            "value": "1.0.0"
+          }
+        ],
+        "url": "{{base_url}}/api/v1/subscription",
+        "description": "Get Subscription. See OpenAPI response schemas and MUSIC_INTEGRATION.md."
+      }
+    },
+    {
+      "name": "PUT /api/v1/subscription",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "X-App-Platform",
+            "value": "Android"
+          },
+          {
+            "key": "X-App-Device",
+            "value": "Postman"
+          },
+          {
+            "key": "X-App-Version",
+            "value": "1.0.0"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{base_url}}/api/v1/subscription",
+        "description": "Switch Subscription. See OpenAPI response schemas and MUSIC_INTEGRATION.md.",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"plan\": \"premium\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "POST /api/v1/playlists/{resource_id}/offline",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "X-App-Platform",
+            "value": "Android"
+          },
+          {
+            "key": "X-App-Device",
+            "value": "Postman"
+          },
+          {
+            "key": "X-App-Version",
+            "value": "1.0.0"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{base_url}}/api/v1/playlists/{{resource_id}}/offline",
+        "description": "Sync Playlist. See OpenAPI response schemas and MUSIC_INTEGRATION.md.",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"mutation_id\": \"22222222-2222-4222-8222-222222222222\",\n  \"base_version\": 1,\n  \"track_ids\": []\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "GET /api/v1/events/nearby",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "X-App-Platform",
+            "value": "Android"
+          },
+          {
+            "key": "X-App-Device",
+            "value": "Postman"
+          },
+          {
+            "key": "X-App-Version",
+            "value": "1.0.0"
+          }
+        ],
+        "url": "{{base_url}}/api/v1/events/nearby?lat=rock&lng=rock",
+        "description": "Nearby Events. See OpenAPI response schemas and MUSIC_INTEGRATION.md. Query parameters: lat, lng, radius_m."
+      }
+    },
+    {
+      "name": "GET /api/v1/devices",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "X-App-Platform",
+            "value": "Android"
+          },
+          {
+            "key": "X-App-Device",
+            "value": "Postman"
+          },
+          {
+            "key": "X-App-Version",
+            "value": "1.0.0"
+          }
+        ],
+        "url": "{{base_url}}/api/v1/devices",
+        "description": "List Devices. See OpenAPI response schemas and MUSIC_INTEGRATION.md. Query parameters: limit, offset."
+      }
+    },
+    {
+      "name": "POST /api/v1/devices",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "X-App-Platform",
+            "value": "Android"
+          },
+          {
+            "key": "X-App-Device",
+            "value": "Postman"
+          },
+          {
+            "key": "X-App-Version",
+            "value": "1.0.0"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{base_url}}/api/v1/devices",
+        "description": "Create Device. See OpenAPI response schemas and MUSIC_INTEGRATION.md.",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Living room speaker\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "GET /api/v1/devices/{device_id}",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "X-App-Platform",
+            "value": "Android"
+          },
+          {
+            "key": "X-App-Device",
+            "value": "Postman"
+          },
+          {
+            "key": "X-App-Version",
+            "value": "1.0.0"
+          }
+        ],
+        "url": "{{base_url}}/api/v1/devices/{{device_id}}",
+        "description": "Get Device. See OpenAPI response schemas and MUSIC_INTEGRATION.md."
+      }
+    },
+    {
+      "name": "DELETE /api/v1/devices/{device_id}",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "X-App-Platform",
+            "value": "Android"
+          },
+          {
+            "key": "X-App-Device",
+            "value": "Postman"
+          },
+          {
+            "key": "X-App-Version",
+            "value": "1.0.0"
+          }
+        ],
+        "url": "{{base_url}}/api/v1/devices/{{device_id}}?base_version=1",
+        "description": "Delete Device. See OpenAPI response schemas and MUSIC_INTEGRATION.md. Query parameters: base_version."
+      }
+    },
+    {
+      "name": "PUT /api/v1/devices/{device_id}/delegation",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "X-App-Platform",
+            "value": "Android"
+          },
+          {
+            "key": "X-App-Device",
+            "value": "Postman"
+          },
+          {
+            "key": "X-App-Version",
+            "value": "1.0.0"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{base_url}}/api/v1/devices/{{device_id}}/delegation",
+        "description": "Delegate. See OpenAPI response schemas and MUSIC_INTEGRATION.md.",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"friend_id\": \"{{user_id}}\",\n  \"base_version\": 1\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "POST /api/v1/devices/{device_id}/control",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "X-App-Platform",
+            "value": "Android"
+          },
+          {
+            "key": "X-App-Device",
+            "value": "Postman"
+          },
+          {
+            "key": "X-App-Version",
+            "value": "1.0.0"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{base_url}}/api/v1/devices/{{device_id}}/control",
+        "description": "Control. See OpenAPI response schemas and MUSIC_INTEGRATION.md.",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"action\": \"play\",\n  \"deezer_id\": 67238732,\n  \"base_version\": 1\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "GET /api/v1/tracks/search",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "X-App-Platform",
+            "value": "Android"
+          },
+          {
+            "key": "X-App-Device",
+            "value": "Postman"
+          },
+          {
+            "key": "X-App-Version",
+            "value": "1.0.0"
+          }
+        ],
+        "url": "{{base_url}}/api/v1/tracks/search?q=rock",
+        "description": "Search Tracks. See OpenAPI response schemas and MUSIC_INTEGRATION.md. Query parameters: q, limit, offset."
+      }
+    },
+    {
+      "name": "GET /api/v1/tracks/{deezer_id}",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "X-App-Platform",
+            "value": "Android"
+          },
+          {
+            "key": "X-App-Device",
+            "value": "Postman"
+          },
+          {
+            "key": "X-App-Version",
+            "value": "1.0.0"
+          }
+        ],
+        "url": "{{base_url}}/api/v1/tracks/{{deezer_id}}",
+        "description": "Get Track. See OpenAPI response schemas and MUSIC_INTEGRATION.md."
+      }
+    },
+    {
+      "name": "POST /api/v1/playlists",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "X-App-Platform",
+            "value": "Android"
+          },
+          {
+            "key": "X-App-Device",
+            "value": "Postman"
+          },
+          {
+            "key": "X-App-Version",
+            "value": "1.0.0"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{base_url}}/api/v1/playlists",
+        "description": "Create Playlist. See OpenAPI response schemas and MUSIC_INTEGRATION.md.",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Road trip\",\n  \"visibility\": \"public\",\n  \"license\": \"open\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "POST /api/v1/events",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "X-App-Platform",
+            "value": "Android"
+          },
+          {
+            "key": "X-App-Device",
+            "value": "Postman"
+          },
+          {
+            "key": "X-App-Version",
+            "value": "1.0.0"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{base_url}}/api/v1/events",
+        "description": "Create Event. See OpenAPI response schemas and MUSIC_INTEGRATION.md.",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Friday party\",\n  \"visibility\": \"public\",\n  \"license\": \"open\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "PUT /api/v1/playlists/{resource_id}",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "X-App-Platform",
+            "value": "Android"
+          },
+          {
+            "key": "X-App-Device",
+            "value": "Postman"
+          },
+          {
+            "key": "X-App-Version",
+            "value": "1.0.0"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{base_url}}/api/v1/playlists/{{resource_id}}",
+        "description": "Update Playlist. See OpenAPI response schemas and MUSIC_INTEGRATION.md.",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Road trip\",\n  \"visibility\": \"private\",\n  \"license\": \"invited\",\n  \"base_version\": 1\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "PUT /api/v1/events/{resource_id}",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "X-App-Platform",
+            "value": "Android"
+          },
+          {
+            "key": "X-App-Device",
+            "value": "Postman"
+          },
+          {
+            "key": "X-App-Version",
+            "value": "1.0.0"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{base_url}}/api/v1/events/{{resource_id}}",
+        "description": "Update Event. See OpenAPI response schemas and MUSIC_INTEGRATION.md.",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Friday party\",\n  \"visibility\": \"public\",\n  \"license\": \"open\",\n  \"base_version\": 1\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "GET /api/v1/{collection}",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "X-App-Platform",
+            "value": "Android"
+          },
+          {
+            "key": "X-App-Device",
+            "value": "Postman"
+          },
+          {
+            "key": "X-App-Version",
+            "value": "1.0.0"
+          }
+        ],
+        "url": "{{base_url}}/api/v1/{{collection}}",
+        "description": "List Resources. See OpenAPI response schemas and MUSIC_INTEGRATION.md. Query parameters: limit, offset, q. collection is playlists or events."
+      }
+    },
+    {
+      "name": "GET /api/v1/{collection}/{resource_id}",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "X-App-Platform",
+            "value": "Android"
+          },
+          {
+            "key": "X-App-Device",
+            "value": "Postman"
+          },
+          {
+            "key": "X-App-Version",
+            "value": "1.0.0"
+          }
+        ],
+        "url": "{{base_url}}/api/v1/{{collection}}/{{resource_id}}",
+        "description": "Get Resource. See OpenAPI response schemas and MUSIC_INTEGRATION.md. collection is playlists or events."
+      }
+    },
+    {
+      "name": "DELETE /api/v1/{collection}/{resource_id}",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "X-App-Platform",
+            "value": "Android"
+          },
+          {
+            "key": "X-App-Device",
+            "value": "Postman"
+          },
+          {
+            "key": "X-App-Version",
+            "value": "1.0.0"
+          }
+        ],
+        "url": "{{base_url}}/api/v1/{{collection}}/{{resource_id}}?base_version=1",
+        "description": "Delete Resource. See OpenAPI response schemas and MUSIC_INTEGRATION.md. Query parameters: base_version. collection is playlists or events."
+      }
+    },
+    {
+      "name": "POST /api/v1/{collection}/{resource_id}/tracks",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "X-App-Platform",
+            "value": "Android"
+          },
+          {
+            "key": "X-App-Device",
+            "value": "Postman"
+          },
+          {
+            "key": "X-App-Version",
+            "value": "1.0.0"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{base_url}}/api/v1/{{collection}}/{{resource_id}}/tracks",
+        "description": "Add Track. See OpenAPI response schemas and MUSIC_INTEGRATION.md. collection is playlists or events.",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"deezer_id\": 67238732,\n  \"base_version\": 1\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "POST /api/v1/playlists/{resource_id}/tracks/move",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "X-App-Platform",
+            "value": "Android"
+          },
+          {
+            "key": "X-App-Device",
+            "value": "Postman"
+          },
+          {
+            "key": "X-App-Version",
+            "value": "1.0.0"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{base_url}}/api/v1/playlists/{{resource_id}}/tracks/move",
+        "description": "Move Track. See OpenAPI response schemas and MUSIC_INTEGRATION.md.",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"from_index\": 0,\n  \"to_index\": 1,\n  \"base_version\": 1\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "DELETE /api/v1/{collection}/{resource_id}/tracks/{track_id}",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "X-App-Platform",
+            "value": "Android"
+          },
+          {
+            "key": "X-App-Device",
+            "value": "Postman"
+          },
+          {
+            "key": "X-App-Version",
+            "value": "1.0.0"
+          }
+        ],
+        "url": "{{base_url}}/api/v1/{{collection}}/{{resource_id}}/tracks/{{track_id}}?base_version=1",
+        "description": "Remove Track. See OpenAPI response schemas and MUSIC_INTEGRATION.md. Query parameters: base_version. collection is playlists or events."
+      }
+    },
+    {
+      "name": "GET /api/v1/{collection}/{resource_id}/invitations",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "X-App-Platform",
+            "value": "Android"
+          },
+          {
+            "key": "X-App-Device",
+            "value": "Postman"
+          },
+          {
+            "key": "X-App-Version",
+            "value": "1.0.0"
+          }
+        ],
+        "url": "{{base_url}}/api/v1/{{collection}}/{{resource_id}}/invitations",
+        "description": "List Invitations. See OpenAPI response schemas and MUSIC_INTEGRATION.md. collection is playlists or events."
+      }
+    },
+    {
+      "name": "POST /api/v1/{collection}/{resource_id}/invitations",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "X-App-Platform",
+            "value": "Android"
+          },
+          {
+            "key": "X-App-Device",
+            "value": "Postman"
+          },
+          {
+            "key": "X-App-Version",
+            "value": "1.0.0"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{base_url}}/api/v1/{{collection}}/{{resource_id}}/invitations",
+        "description": "Invite. See OpenAPI response schemas and MUSIC_INTEGRATION.md. collection is playlists or events.",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"user_id\": \"{{user_id}}\",\n  \"base_version\": 1\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "POST /api/v1/{collection}/{resource_id}/invitations/accept",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "X-App-Platform",
+            "value": "Android"
+          },
+          {
+            "key": "X-App-Device",
+            "value": "Postman"
+          },
+          {
+            "key": "X-App-Version",
+            "value": "1.0.0"
+          }
+        ],
+        "url": "{{base_url}}/api/v1/{{collection}}/{{resource_id}}/invitations/accept",
+        "description": "Accept Invitation. See OpenAPI response schemas and MUSIC_INTEGRATION.md. collection is playlists or events."
+      }
+    },
+    {
+      "name": "DELETE /api/v1/{collection}/{resource_id}/invitations/{user_id}",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "X-App-Platform",
+            "value": "Android"
+          },
+          {
+            "key": "X-App-Device",
+            "value": "Postman"
+          },
+          {
+            "key": "X-App-Version",
+            "value": "1.0.0"
+          }
+        ],
+        "url": "{{base_url}}/api/v1/{{collection}}/{{resource_id}}/invitations/{{user_id}}?base_version=1",
+        "description": "Uninvite. See OpenAPI response schemas and MUSIC_INTEGRATION.md. Query parameters: base_version. collection is playlists or events."
+      }
+    },
+    {
+      "name": "POST /api/v1/events/{resource_id}/tracks/{track_id}/votes",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "X-App-Platform",
+            "value": "Android"
+          },
+          {
+            "key": "X-App-Device",
+            "value": "Postman"
+          },
+          {
+            "key": "X-App-Version",
+            "value": "1.0.0"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{base_url}}/api/v1/events/{{resource_id}}/tracks/{{track_id}}/votes",
+        "description": "Vote. See OpenAPI response schemas and MUSIC_INTEGRATION.md.",
+        "body": {
+          "mode": "raw",
+          "raw": "{}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "DELETE /api/v1/events/{resource_id}/tracks/{track_id}/votes",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "X-App-Platform",
+            "value": "Android"
+          },
+          {
+            "key": "X-App-Device",
+            "value": "Postman"
+          },
+          {
+            "key": "X-App-Version",
+            "value": "1.0.0"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{base_url}}/api/v1/events/{{resource_id}}/tracks/{{track_id}}/votes",
+        "description": "Unvote. See OpenAPI response schemas and MUSIC_INTEGRATION.md.",
+        "body": {
+          "mode": "raw",
+          "raw": "{}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "POST /api/v1/events/{resource_id}/advance",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "X-App-Platform",
+            "value": "Android"
+          },
+          {
+            "key": "X-App-Device",
+            "value": "Postman"
+          },
+          {
+            "key": "X-App-Version",
+            "value": "1.0.0"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{base_url}}/api/v1/events/{{resource_id}}/advance",
+        "description": "Advance. See OpenAPI response schemas and MUSIC_INTEGRATION.md.",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"base_version\": 1\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "GET /api/v1/invitations",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "X-App-Platform",
+            "value": "Android"
+          },
+          {
+            "key": "X-App-Device",
+            "value": "Postman"
+          },
+          {
+            "key": "X-App-Version",
+            "value": "1.0.0"
+          }
+        ],
+        "url": "{{base_url}}/api/v1/invitations",
+        "description": "Invitation Inbox. See OpenAPI response schemas and MUSIC_INTEGRATION.md. Query parameters: status, limit, offset."
+      }
+    },
+    {
+      "name": "POST /api/v1/activity",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "X-App-Platform",
+            "value": "Android"
+          },
+          {
+            "key": "X-App-Device",
+            "value": "Postman"
+          },
+          {
+            "key": "X-App-Version",
+            "value": "1.0.0"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{base_url}}/api/v1/activity",
+        "description": "Activity. See OpenAPI response schemas and MUSIC_INTEGRATION.md.",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"events\": [\n    {\n      \"event_id\": \"22222222-2222-4222-8222-222222222222\",\n      \"action\": \"playback_start\",\n      \"occurred_at\": \"2026-11-05T16:00:00Z\"\n    }\n  ]\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    }
+  ]
+}
