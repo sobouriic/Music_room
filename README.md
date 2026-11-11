@@ -9,6 +9,35 @@ Built with Expo and React Native for the mobile app and FastAPI with PostgreSQL
 for the backend, Music Room brings music discovery and group listening into one
 place.
 
+## My contribution
+
+This is a team project. I worked on the backend, built with FastAPI and
+PostgreSQL. My backend work includes:
+
+- **Database:** relational data models, SQLAlchemy integration, and Alembic
+  migrations for users, profiles, friendships, playlists, events, votes, and devices.
+- **Authentication and permissions:** email/password authentication, Google sign-in,
+  rotating refresh sessions, email verification, password recovery, and access
+  rules for private resources and profiles.
+- **Music and collaboration APIs:** Deezer catalog search, collaborative playlists,
+  event invitations, voting, and playback queue management.
+- **Real-time updates:** authenticated WebSockets to notify clients of changes to
+  shared resources and device state.
+- **IoT and device control:** playback device registration, delegated control, and
+  a Python speaker client for computers or Raspberry Pi that receives state
+  updates over WebSockets and plays Deezer previews through FFmpeg.
+- **Background jobs and bonus features:** an email outbox worker with retry
+  scheduling, demo subscription plans, offline playlist synchronization, and
+  nearby-event lookup.
+- **Scripts and tooling:** development startup scripts, Docker Compose setup,
+  database migration automation, API checks, smoke tests, and HTTP/WebSocket
+  load-testing scripts.
+- **Testing and documentation:** backend unit, integration, and security tests,
+  plus API contracts, OpenAPI/Postman exports, and frontend integration guides.
+
+The Expo and React Native frontend shown in the demo was developed by one of my
+teammates.
+
 ## Demo
 
 These demo screenshots show the login page and an event where participants can
