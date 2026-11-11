@@ -35,7 +35,7 @@ PostgreSQL. My backend work includes:
 - **Testing and documentation:** backend unit, integration, and security tests,
   plus API contracts, OpenAPI/Postman exports, and frontend integration guides.
 
-The Expo and React Native frontend shown in the demo was developed by one of my
+The Expo and React Native frontend shown in the demo was developed by my
 teammates.
 
 ## Demo
