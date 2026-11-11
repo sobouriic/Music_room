@@ -11,10 +11,12 @@ place.
 
 ## Demo
 
-The screenshot below shows a demo of the event screen, where participants can
+These demo screenshots show the login page and an event where participants can
 search for tracks, preview them, and suggest songs for the group.
 
-<img src="docs/images/music-room-demo.png" alt="Music Room demo showing an event and track search results with preview and Suggest buttons" width="360" />
+| Login demo | Event demo |
+| --- | --- |
+| <img src="docs/images/music-room-login-demo.png" alt="Music Room login demo with email, password, Google login, and account options" width="300" /> | <img src="docs/images/music-room-demo.png" alt="Music Room event demo with track search results, preview controls, and Suggest buttons" width="300" /> |
 
 ## Getting started
 
@@ -70,4 +72,4 @@ Verification and reset messages are always saved locally. Set
 verification, open the newest `backend/.dev-mail/*.eml` file, and copy the value
 after `Token:` into the app's Verify email screen. No email is sent to an inbox.
 
-Run the three-service HTTP/WebSocket benchmark independently: [load-testing guide](backend/docs/LOAD_TESTING.md).
+
